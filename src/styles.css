@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+
+.box-shadow {
+	box-shadow: 0 0 1px #cdcdcd;
+}
+
+.s-text {
+	font-size: 3em;
+}

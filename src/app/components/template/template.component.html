@@ -1,0 +1,164 @@
+<h2>
+  Formularios 
+  <small>
+    template
+  </small>
+</h2>
+
+<div class="box-shadow p-2">
+  <form class="form" (ngSubmit)="guardar(forma)" #forma="ngForm" novalidate="">
+    <div>
+      <div class="form-group row" [ngClass]="{ 'has-danger': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched}">
+        <label class="col-2 col-form-label">
+          Nombre
+        </label>
+  
+        <div class="col-8">
+          <input class="form-control" type="text" placeholder="Nombre" #nombre="ngModel" name="nombre" [(ngModel)]="usuario.nombre" minlength="5" maxlength="30" required>
+  
+          <div *ngIf="nombre.errors?.required && nombre.touched" class="form-control-feedback">
+            Este campo es requerido.
+          </div>
+  
+          <div *ngIf="nombre.errors?.minlength" class="form-control-feedback">
+            Minimo {{ nombre.errors.minlength.requiredLength }} caracteres.
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group row" [ngClass]="{ 'has-danger': (apellido.errors?.required || apellido.errors?.minlength) && apellido.touched}">
+        <label class="col-2 col-form-label">
+          Apellido
+        </label>
+  
+        <div class="col-8">
+          <input class="form-control" type="text" placeholder="Apellido" #apellido="ngModel" name="apellido" [(ngModel)]="usuario.apellido" minlength="5" maxlength="30" required>
+  
+          <div *ngIf="apellido.errors?.required && apellido.touched" class="form-control-feedback">
+            Este campo es requerido.
+          </div>
+  
+          <div *ngIf="apellido.errors?.minlength" class="form-control-feedback">
+            Minimo {{ apellido.errors.minlength.requiredLength }} caracteres.
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="form-group row" [ngClass]="{ 'has-danger': (correo.errors?.required || correo.errors?.pattern) && correo.touched}">
+      <label class="col-2 col-form-label">
+        Correo
+      </label>
+  
+      <div class="col-md-8">
+        <input class="form-control" type="email" placeholder="Correo electrónico" #correo="ngModel" name="correo" [(ngModel)]="usuario.correo" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+  
+        <div *ngIf="correo.errors?.required && correo.touched" class="form-control-feedback">
+          Este campo es requerido.
+        </div>
+  
+        <div *ngIf="correo.errors?.pattern" class="form-control-feedback">
+          El campo no tiene formato de correo
+        </div>
+      </div>
+    </div>
+  
+    <div class="form-group row">
+      <label class="col-2 col-form-label">
+        Pais
+      </label>
+  
+      <div class="col-md-8">
+        <select class="form-control" name="pais" id="pais" [(ngModel)]="usuario.pais">
+          <option value="">
+            Seleccione un pais
+          </option>
+  
+          <option [value]="pais.codigo" *ngFor="let pais of paises">
+            {{ pais.nombre }}
+          </option>
+        </select>
+      </div>
+    </div>
+  
+    <!-- <div class="form-group row">
+      <label class="col-2 col-form-label">
+        Sexo
+      </label>
+  
+      <div class="col-md-8">
+        <label class="custom-control custom-radio">
+          <input [(ngModel)]="usuario.sexo" value="Masculino" type="radio" name="sexo" class="custom-control-input">
+  
+          <span class="custom-control-indicator"></span>
+  
+          <span class="custom-control-description">
+            Masculino
+          </span>
+        </label>
+  
+        <label class="custom-control custom-radio">
+          <input [(ngModel)]="usuario.sexo" value="Femenino" type="radio" name="sexo" class="custom-control-input">
+  
+          <span class="custom-control-indicator"></span>
+  
+          <span class="custom-control-description">
+            Femenino
+          </span>
+        </label>
+      </div>
+    </div> -->
+  
+    <div class="form-group row">
+      <label class="col-2 col-form-label">
+        Sexo
+      </label>
+  
+      <div class="col-md-8">
+        <label *ngFor="let sexo of sexos" class="custom-control custom-radio">
+          <input [(ngModel)]="usuario.sexo" [value]="sexo" type="radio" name="sexo" class="custom-control-input">
+  
+          <span class="custom-control-indicator"></span>
+  
+          <span class="custom-control-description">
+            {{ sexo }}
+          </span>
+        </label>
+      </div>
+    </div>
+  
+    <div class="form-group row">
+      <label class="col-2 col-form-label">
+        Sexo
+      </label>
+  
+      <div class="col-md-8">
+        <label class="custom-control custom-checkbox">
+          <input [(ngModel)]="usuario.acepta" name="acepta" type="checkbox" class="custom-control-input" required>
+  
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">
+            Acepta las condiciones
+          </span>
+        </label>
+      </div>
+    </div>
+  
+    <div class="form-group row">
+      <label class="col-2 col-form-label">
+        &nbsp;
+      </label>
+  
+      <div class="input-group col-md-8">
+        <button [disabled]="!forma.valid" type="submit" class="btn btn-outline-primary">
+          Guardar
+        </button>
+      </div>
+    </div>
+  
+  </form>
+  
+  <pre>
+    {{ usuario | json }}
+  </pre>
+</div>
